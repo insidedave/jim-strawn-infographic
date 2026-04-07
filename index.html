@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Turn Your Property into an Opportunity - Airbnb Case Study</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+.chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 300px; max-height: 400px; }
+@media (min-width: 768px) { .chart-container { height: 350px; } }
+body { background-color: #EDF2F4; color: #2B2D42; font-family: system-ui, -apple-system, sans-serif; }
+.card-elevation { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); }
+</style>
+
+<!-- Chosen Palette: Vibrant & Energetic (Navy #2B2D42, Coral Red #EF233C, Teal #00A699, Off-White #EDF2F4, White #FFFFFF) -->
+<!-- Application Structure Plan: The SPA is structured as a vertical scrolling narrative, acting as a direct visual companion to Jim Strawn's presentation. It flows logically from the overarching "Hook" (The Global/Local Opportunity) to the "Financial Reality" (comparing averages and ROI), down to the "Secret Sauce" of hospitality (qualitative insights presented via grid), and concludes with "Business Models" (comparing operational scales). This structure transforms a spoken presentation into an easy-to-digest, linear visual story, allowing users to grasp the financials before understanding the effort required to achieve them. -->
+<!-- Visualization & Content Choices: 
+1. Global Market Size -> Goal: Inform -> Big Number Display -> Interaction: None -> Justification: Establishes massive scale immediately. -> Method: HTML/Tailwind styling. Confirming NO SVG/Mermaid.
+2. Earnings Comparison -> Goal: Compare -> Bar Chart -> Interaction: Hover Tooltips -> Justification: Visually demonstrates the gap between published state averages and actual specific market performance. -> Method: Chart.js. Confirming NO SVG/Mermaid.
+3. Investment vs. Return -> Goal: Compare/Inform -> Doughnut Chart -> Interaction: Hover Tooltips -> Justification: Shows the long-term profitability against the initial heavy capital expenditure of rebuilding the room. -> Method: Chart.js. Confirming NO SVG/Mermaid.
+4. Review Ratio -> Goal: Compare -> Pie Chart -> Interaction: Hover Tooltips -> Justification: Highlights the overwhelming success rate of the host's hospitality efforts. -> Method: Chart.js. Confirming NO SVG/Mermaid.
+5. The Little Touches -> Goal: Organize -> CSS Grid Cards -> Interaction: Hover state elevation -> Justification: Organizes qualitative advice into digestible, themed blocks. -> Method: HTML/Tailwind with Unicode icons. Confirming NO SVG/Mermaid.
+6. Business Models -> Goal: Compare -> Side-by-side Flexbox Cards -> Interaction: None -> Justification: Clearly contrasts the "Simple" vs. "Scale" approaches mentioned in the talk. -> Method: HTML/Tailwind. Confirming NO SVG/Mermaid. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+</head>
+<body class="antialiased selection:bg-[#EF233C] selection:text-white">
+
+<header class="bg-[#2B2D42] text-white py-20 px-6 border-b-8 border-[#EF233C]">
+    <div class="max-w-5xl mx-auto">
+        <p class="text-[#00A699] font-bold tracking-widest uppercase text-sm mb-4">Kanawha Valley Economic Development</p>
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">Turn Your Property<br><span class="text-[#EF233C]">Into An Opportunity</span></h1>
+        <p class="text-xl md:text-2xl text-gray-300 max-w-3xl font-light leading-relaxed">
+            What would you do with the extra money? Send a kid to college? Buy a new car? Explore the real-world financial data and hospitality secrets behind the successful Strawn Chalet Airbnb in Charleston, West Virginia.
+        </p>
+    </div>
+</header>
+
+<main class="max-w-5xl mx-auto px-6 py-16 space-y-24">
+
+    <section>
+        <div class="mb-10">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#2B2D42]">The Global & Local Landscape</h2>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                Before diving into the specifics of a single unit, it is crucial to understand the broader market context. This section contrasts the massive worldwide scale of short-term rentals with the grounded, realistic earning potential of a host operating in West Virginia.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-2xl p-8 card-elevation flex flex-col justify-center items-center text-center border-t-4 border-[#00A699]">
+                <p class="text-gray-500 uppercase tracking-wider text-sm font-bold mb-2">Worldwide Industry</p>
+                <p class="text-6xl font-extrabold text-[#2B2D42] mb-2">$77B</p>
+                <p class="text-gray-600">Total global business valuation, showcasing the massive demand for peer-to-peer lodging.</p>
+            </div>
+            
+            <div class="md:col-span-2 bg-white rounded-2xl p-8 card-elevation">
+                <h3 class="text-xl font-bold mb-2 text-[#2B2D42]">Expectation vs. Reality</h3>
+                <p class="text-gray-600 mb-6 text-sm">
+                    While the published average for a WV host is relatively high, geography dictates actual earnings. The chart below compares the state average to the actual performance of the Strawn Chalet in Charleston over 5.5 years.
+                </p>
+                <div class="chart-container">
+                    <canvas id="earningsChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="mb-10">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#2B2D42]">The Financial Journey</h2>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                Creating a profitable space often requires upfront capital. This section breaks down the initial investment required to transform a water-damaged room under a deck into a premium guest suite, and the total revenue it generated over its operational lifespan.
+            </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 md:p-12 card-elevation">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 text-[#2B2D42]">From Mildew to Money</h3>
+                    <p class="text-gray-700 mb-4">
+                        In Summer 2019, the downstairs room was gutted due to severe mold, mildew, and water damage. Walls, ceiling, and flooring were completely rebuilt with new drainage installed.
+                    </p>
+                    <ul class="space-y-4 mb-6">
+                        <li class="flex items-center">
+                            <span class="text-2xl mr-4">💸</span>
+                            <div>
+                                <p class="font-bold text-[#2B2D42]">Initial Investment</p>
+                                <p class="text-gray-600">$42,000 - $50,000</p>
+                            </div>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-2xl mr-4">💰</span>
+                            <div>
+                                <p class="font-bold text-[#2B2D42]">Total Revenue Generated</p>
+                                <p class="text-gray-600">$105,000 - $110,000 (Over 5.5 Years)</p>
+                            </div>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-2xl mr-4">📈</span>
+                            <div>
+                                <p class="font-bold text-[#2B2D42]">Tax Strategy</p>
+                                <p class="text-gray-600">Deducted 11% of utilities/expenses (based on 275 sq ft unit in 2,500 sq ft home).</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="chart-container">
+                        <canvas id="roiChart"></canvas>
+                    </div>
+                    <p class="text-center text-sm text-gray-500 mt-4">Calculated using the median of provided financial ranges.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="mb-10">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#2B2D42]">The Secret to 5-Star Hospitality</h2>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                Airbnb is a review-driven industry. Earning near-perfect ratings requires far more than just a clean room; it requires intentional, personalized hospitality. This section explores the qualitative strategies and "little touches" that led to 647 five-star reviews.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            
+            <div class="md:col-span-1 bg-white rounded-2xl p-6 card-elevation flex flex-col items-center justify-center border-t-4 border-[#EF233C]">
+                <h3 class="text-lg font-bold mb-2 text-center text-[#2B2D42]">Guest Satisfaction</h3>
+                <div class="w-full h-48 relative">
+                    <canvas id="reviewsChart"></canvas>
+                </div>
+                <p class="text-center mt-4 font-bold text-2xl text-[#2B2D42]">650<br><span class="text-sm font-normal text-gray-500">Total Guests</span></p>
+            </div>
+
+            <div class="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                
+                <div class="bg-white rounded-2xl p-6 card-elevation transition-transform hover:-translate-y-1">
+                    <div class="text-4xl mb-4">🧽</div>
+                    <h4 class="text-xl font-bold text-[#2B2D42] mb-2">Immaculate Cleaning</h4>
+                    <p class="text-gray-600 text-sm">
+                        "I was the housekeeper. I got down on my hands and knees and cleaned every corner." A rigorous cleaning standard with a reasonable $10-$15 flat fee per stay, avoiding inflated surprise charges.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 card-elevation transition-transform hover:-translate-y-1">
+                    <div class="text-4xl mb-4">👋</div>
+                    <h4 class="text-xl font-bold text-[#2B2D42] mb-2">Personal Connection</h4>
+                    <p class="text-gray-600 text-sm">
+                        Welcomed almost every guest personally. Wrote names on a welcome board, helped with luggage, and occasionally picked guests up from the airport or train station.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 card-elevation transition-transform hover:-translate-y-1">
+                    <div class="text-4xl mb-4">🧻</div>
+                    <h4 class="text-xl font-bold text-[#2B2D42] mb-2">The "Good Stuff"</h4>
+                    <p class="text-gray-600 text-sm">
+                        "Don't skimp on the toilet paper." The fridge was fully stocked with juice, milk, beer, snacks, and multiple coffee options. Provided every conceivable toiletry a guest might need.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 card-elevation transition-transform hover:-translate-y-1">
+                    <div class="text-4xl mb-4">🗺️</div>
+                    <h4 class="text-xl font-bold text-[#2B2D42] mb-2">Local Ambassadorship</h4>
+                    <p class="text-gray-600 text-sm">
+                        Provided tourism brochures, restaurant menus, discount coupons, and gifted guests a West Virginia GeoCloth in a metal case. The goal: Make them realize Charleston is wonderful.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="mb-10">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#2B2D42]">Choosing Your Business Model</h2>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                There is no single correct way to operate a short-term rental business. This section outlines the contrast between a simple, owner-operated approach and a scaled, corporate co-hosting model, demonstrating that hosts can tailor the business to their specific goals.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-white rounded-2xl p-8 card-elevation border-l-8 border-[#00A699]">
+                <h3 class="text-2xl font-bold text-[#2B2D42] mb-2">The "Simple" Model</h3>
+                <p class="text-[#EF233C] font-semibold mb-6">Strawn Chalet Approach</p>
+                <ul class="space-y-3 text-gray-700">
+                    <li class="flex items-start"><span class="text-[#00A699] font-bold mr-2">✓</span> Single unit located at personal residence.</li>
+                    <li class="flex items-start"><span class="text-[#00A699] font-bold mr-2">✓</span> No LLC required; operated as a sole proprietor.</li>
+                    <li class="flex items-start"><span class="text-[#00A699] font-bold mr-2">✓</span> No formal business license utilized initially.</li>
+                    <li class="flex items-start"><span class="text-[#00A699] font-bold mr-2">✓</span> Finances managed directly through a personal checking account.</li>
+                    <li class="flex items-start"><span class="text-[#00A699] font-bold mr-2">✓</span> Relied on Airbnb for tax document (1099) generation.</li>
+                </ul>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 card-elevation border-l-8 border-[#2B2D42]">
+                <h3 class="text-2xl font-bold text-[#2B2D42] mb-2">The "Scale" Model</h3>
+                <p class="text-gray-500 font-semibold mb-6">Revived B&B Approach (C. Anthony Parker)</p>
+                <ul class="space-y-3 text-gray-700">
+                    <li class="flex items-start"><span class="text-[#2B2D42] font-bold mr-2">✓</span> Multi-unit operation (Approx. 32 units).</li>
+                    <li class="flex items-start"><span class="text-[#2B2D42] font-bold mr-2">✓</span> Operates formally under an LLC structure.</li>
+                    <li class="flex items-start"><span class="text-[#2B2D42] font-bold mr-2">✓</span> Utilizes a "co-hosting" model managing properties for others.</li>
+                    <li class="flex items-start"><span class="text-[#2B2D42] font-bold mr-2">✓</span> Requires comprehensive commercial insurance and licensing.</li>
+                    <li class="flex items-start"><span class="text-[#2B2D42] font-bold mr-2">✓</span> True dedicated hospitality business entity.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="bg-[#2B2D42] text-center py-10 px-6 mt-12">
+    <p class="text-gray-400 max-w-2xl mx-auto italic mb-4">
+        "This is not for the faint of heart. But it can absolutely make you money. And beyond the money, it can be rewarding, creative, and fun."
+    </p>
+    <p class="text-white font-bold">— Jim Strawn</p>
+</footer>
+
+<script>
+    function wrapLabel(label, maxLength) {
+        if (label.length <= maxLength) return label;
+        const words = label.split(' ');
+        const lines = [];
+        let currentLine = '';
+        words.forEach(word => {
+            if ((currentLine + word).length > maxLength) {
+                if (currentLine.trim() !== '') lines.push(currentLine.trim());
+                currentLine = word + ' ';
+            } else {
+                currentLine += word + ' ';
+            }
+        });
+        if (currentLine.trim() !== '') lines.push(currentLine.trim());
+        return lines;
+    }
+
+    const tooltipConfig = {
+        callbacks: {
+            title: function(tooltipItems) {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                } else {
+                    return label;
+                }
+            }
+        }
+    };
+
+    const rawLabelsEarnings = ['West Virginia Published Average Earnings', 'Strawn Chalet Actual Annual Earnings'];
+    const wrappedLabelsEarnings = rawLabelsEarnings.map(label => wrapLabel(label, 16));
+
+    const ctxEarnings = document.getElementById('earningsChart').getContext('2d');
+    new Chart(ctxEarnings, {
+        type: 'bar',
+        data: {
+            labels: wrappedLabelsEarnings,
+            datasets: [{
+                label: 'Annual Income ($)',
+                data: [33000, 19500],
+                backgroundColor: ['#2B2D42', '#EF233C'],
+                borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: tooltipConfig
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { callback: function(value) { return '$' + value.toLocaleString(); } }
+                }
+            }
+        }
+    });
+
+    const rawLabelsROI = ['Median Initial Renovation Investment', 'Estimated Net Profit Over 5.5 Years'];
+    const wrappedLabelsROI = rawLabelsROI.map(label => wrapLabel(label, 16));
+
+    const ctxROI = document.getElementById('roiChart').getContext('2d');
+    new Chart(ctxROI, {
+        type: 'doughnut',
+        data: {
+            labels: wrappedLabelsROI,
+            datasets: [{
+                data: [46000, 61500],
+                backgroundColor: ['#00A699', '#EF233C'],
+                borderWidth: 0,
+                hoverOffset: 10
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '60%',
+            plugins: {
+                legend: { position: 'bottom' },
+                tooltip: tooltipConfig
+            }
+        }
+    });
+
+    const rawLabelsReviews = ['Five Star Reviews Received', 'Four Star Reviews Received'];
+    const wrappedLabelsReviews = rawLabelsReviews.map(label => wrapLabel(label, 16));
+
+    const ctxReviews = document.getElementById('reviewsChart').getContext('2d');
+    new Chart(ctxReviews, {
+        type: 'pie',
+        data: {
+            labels: wrappedLabelsReviews,
+            datasets: [{
+                data: [647, 3],
+                backgroundColor: ['#EF233C', '#2B2D42'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: tooltipConfig
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
